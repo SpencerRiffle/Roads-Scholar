@@ -101,7 +101,10 @@ int main() {
     // Solve all signs
     WriteSigns(graph, pred, signs, cities);
     for (int i = 0; i < signs.size(); i++) {
-        cout << signs[i] << endl;
+        cout << signs[i];
+        if (i != signs.size() - 1) {
+            cout << endl;
+        }
     }
 	return 0;
 }
