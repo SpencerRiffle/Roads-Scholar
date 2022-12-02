@@ -24,7 +24,6 @@ vector<pair<string, int>> Sign::getText() {
 	return text;
 }
 
-
 void Sign::insert(string name, double dist) {
 	int miles = round(dist);
 	pair<string, int> temp = pair<string, int>("", NULL);

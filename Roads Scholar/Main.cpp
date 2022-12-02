@@ -9,7 +9,7 @@
 * after which the results are printed.
 *
 * Author: Seth Campbell, Spencer Riffle
-* Created: November 2022
+* Created: December 2022
 *
 * ©Copyright Cedarville University, its Computer Science faculty, and the
 * authors. All rights reserved.
