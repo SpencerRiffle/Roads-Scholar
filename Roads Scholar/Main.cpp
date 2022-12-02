@@ -72,6 +72,7 @@ int main() {
         cin >> dest;
         cin >> dist;
         graph[source][dest] = dist;
+        graph[dest][source] = dist;
         pred[source][dest] = source;
     }
 
@@ -123,7 +124,9 @@ int main() {
              for (int v = 0; v < n; v++) {
                  if ((best[u][k] + best[k][v]) < best[u][v]) {
                      best[u][v] = best[u][k] + best[k][v];
+                     best[v][u] = best[u][k] + best[k][v];
                      pred[u][v] = pred[k][v];
+                     pred[v][u] = pred[k][v];
                  }
              }
          }
