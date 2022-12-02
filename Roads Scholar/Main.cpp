@@ -92,24 +92,11 @@ int main() {
         signs.push_back(Sign(source, dest, dist));
     }
 
-    // DEBUG //
-    cout << endl << "Graph:" << endl;
-    printMatrix(graph);
-    // DEBUG //
-
     // Solve graph APSP
     Floyd_Warshall(graph, pred, numInters);
 
-    // DEBUG //
-    cout << endl << "Best:" << endl;
-    printMatrix(graph);
-    cout << endl << "Pred:" << endl;
-    printMatrix(pred);
-    // DEBUG //
-
     // Solve all signs
     WriteSigns(graph, pred, signs, cities);
-
     for (int i = 0; i < signs.size(); i++) {
         cout << signs[i];
     }
