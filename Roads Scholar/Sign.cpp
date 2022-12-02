@@ -1,27 +1,29 @@
+/********************************************************
+* This file provides an implementation of the Sign.h class.
+*
+* ©Copyright Cedarville University, its Computer Science faculty, and the
+* authors. All rights reserved.
+* *******************************************************/
+
 #pragma once
-
 #include "Sign.h"
-
-// Insertion sort based on distance, then name, then arrival time
 
 int Sign::getSource() {
 	return source;
 }
 
-int Sign::getDest()
-{
+int Sign::getDest() {
 	return dest;
 }
 
-double Sign::getDist()
-{
+double Sign::getDist() {
 	return dist;
 }
 
-vector<pair<string, int>> Sign::getText()
-{
+vector<pair<string, int>> Sign::getText() {
 	return text;
 }
+
 
 void Sign::insert(string name, double dist) {
 	int miles = round(dist);
@@ -47,8 +49,7 @@ void Sign::insert(string name, double dist) {
 	text.push_back(hold);
 }
 
-ostream& operator<<(ostream&, Sign& sign)
-{
+ostream& operator<<(ostream&, Sign& sign) {
 	vector<pair<string, int>> text = sign.getText();
 	for (int i = 0; i < text.size(); i++) {
 		cout << text[i].first << text[i].second << endl;

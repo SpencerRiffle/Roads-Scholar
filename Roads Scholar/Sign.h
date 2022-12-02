@@ -29,8 +29,9 @@ public:
 	vector<pair<string, int>> getText();
 
 	// Modifiers
-	void insert(string name, double dist);
-	friend ostream& operator<<(ostream&, Sign& sign);
+	// Insertion sort based on distance, then name, then arrival time
+	void insert(string, double);
+	friend ostream& operator<<(ostream&, Sign&);
 
 private:
 	int source;
@@ -38,4 +39,3 @@ private:
 	double dist;
 	vector<pair<string, int>> text;
 };
-
