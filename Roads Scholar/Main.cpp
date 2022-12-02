@@ -2,8 +2,11 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <cmath>
 #include "Sign.h"
 using namespace std;
+
+#define NAME_FIELD_SIZE 20
 
 void Floyd_Warshall(vector<vector<double>>& best, vector<vector<double>>& pred, int numInters);
 void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>& pred,
@@ -98,7 +101,7 @@ int main() {
     // Solve all signs
     WriteSigns(graph, pred, signs, cities);
     for (int i = 0; i < signs.size(); i++) {
-        cout << signs[i];
+        cout << signs[i] << endl;
     }
 	return 0;
 }
@@ -132,6 +135,7 @@ void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>
 
         for (auto& city : cities) {
             int lastHop = city.first;
+            string cityName = city.second + string((NAME_FIELD_SIZE - city.second.size()), ' ');
 
             // Check path
             while (pred[source][lastHop] != source) {
@@ -140,7 +144,7 @@ void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>
 
             // Record city
             if (lastHop == dest) {
-                signs[i].insert(city.second, best[source][city.first] - dist);
+                signs[i].insert(cityName, best[source][city.first] - dist);
             }
         }
     }

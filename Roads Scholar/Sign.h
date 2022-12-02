@@ -21,9 +21,8 @@ public:
 	{
 		vector<pair<string, int>> text = sign.getText();
 		for (int i = 0; i < text.size(); i++) {
-			cout << text[i].first << " " << text[i].second << endl;
+			cout << text[i].first << text[i].second << endl;
 		}
-		cout << endl;
 		return cout;
 	}
 
