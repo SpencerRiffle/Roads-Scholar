@@ -1,3 +1,16 @@
+/********************************************************
+* This class provides an implementation for the Sign object. 
+* Users of this class are provided methods to create a sign
+* and insert locations into it. They may also retrieve the
+* sign's base values, such as its path's source, destination,
+* the sign's distance from its source, and its current text.
+* Sign does not inherit from other classes, and is not anticipated to
+* be a base class for other classes.
+*
+* ©Copyright Cedarville University, its Computer Science faculty, and the
+* authors. All rights reserved.
+* *******************************************************/
+
 #pragma once
 #include <iostream>
 #include <vector>

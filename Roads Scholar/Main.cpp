@@ -1,3 +1,20 @@
+/*********************************************************
+* Summary: This program solves the Roads Scholar program, in which
+* you are given a list of intersections, cities, and roads, and
+* asked to create signs at specific destinations which include only
+* cities the shortest distance from the sign's path.
+* 
+* The Floyd-Warshall algorithm solves a graph of the intersections/
+* cities and roads, then the results are used to fill out the signs,
+* after which the results are printed.
+*
+* Author: Seth Campbell, Spencer Riffle
+* Created: November 2022
+*
+* ©Copyright Cedarville University, its Computer Science faculty, and the
+* authors. All rights reserved.
+********************************************************/
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -8,18 +25,9 @@ using namespace std;
 
 #define NAME_FIELD_SIZE 20
 
-void Floyd_Warshall(vector<vector<double>>& best, vector<vector<double>>& pred, int numInters);
-void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>& pred,
+void floydWarshall(vector<vector<double>>& best, vector<vector<double>>& pred, int numInters);
+void writeSigns(const vector<vector<double>>& best, const vector<vector<double>>& pred,
                 vector<Sign>& signs, const unordered_map<int, string>& cities);
-template <typename T>
-void printMatrix(vector<vector<T>>& v) {
-    for (auto row : v) {
-        for (auto col : row) {
-            cout << col << " ";
-        }
-        cout << endl;
-    }
-}
 
 int main() {
 
@@ -32,14 +40,6 @@ int main() {
     vector<vector<double>> pred;
     unordered_map<int, string> cities;
     vector<Sign> signs;
-
-    // Temp Variables
-    int source = -1;
-    int dest = -1;
-    int tempDest = -1;
-    double dist = 0;
-    int intersection = 0;
-    string name = "";
 
     // Collect n, m, k
     cin >> numInters;
@@ -71,6 +71,9 @@ int main() {
 
     // Collect roads
     for (int i = 0; i < numRoads; i++) {
+        int source;
+        int dest;
+        double dist;
         cin >> source;
         cin >> dest;
         cin >> dist;
@@ -81,6 +84,8 @@ int main() {
 
     // Collect cities
     for (int i = 0; i < numCities; i++) {
+        string name;
+        int intersection;
         cin >> intersection;
         cin >> name;
         cities[intersection] = name;
@@ -89,17 +94,22 @@ int main() {
     // Collect signs
     cin >> numsigns;
     for (int i = 0; i < numsigns; i++) {
+        int source;
+        int dest;
+        double dist;
         cin >> source;
         cin >> dest;
         cin >> dist;
         signs.push_back(Sign(source, dest, dist));
     }
 
-    // Solve graph APSP
-    Floyd_Warshall(graph, pred, numInters);
+    // Solve graph
+    floydWarshall(graph, pred, numInters);
 
     // Solve all signs
-    WriteSigns(graph, pred, signs, cities);
+    writeSigns(graph, pred, signs, cities);
+
+    // Print signs
     for (int i = 0; i < signs.size(); i++) {
         cout << signs[i];
         if (i != signs.size() - 1) {
@@ -109,7 +119,7 @@ int main() {
 	return 0;
 }
 
- void Floyd_Warshall(vector<vector<double>>& best, vector<vector<double>>& pred, int numInters) {
+ void floydWarshall(vector<vector<double>>& best, vector<vector<double>>& pred, int numInters) {
      int n = numInters;
 
      for (int k = 0; k < n; k++) {
@@ -126,12 +136,10 @@ int main() {
      }
  }
 
-void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>& pred, 
+void writeSigns(const vector<vector<double>>& best, const vector<vector<double>>& pred, 
                 vector<Sign>& signs, const unordered_map<int, string>& cities) {
-    
-    // Solve each sign
-    for (int i = 0; i < signs.size(); i++) {
 
+    for (int i = 0; i < signs.size(); i++) {
         int source = signs[i].getSource();
         int dest = signs[i].getDest();
         double dist = signs[i].getDist();
@@ -140,12 +148,10 @@ void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>
             int lastHop = city.first;
             string cityName = city.second + string((NAME_FIELD_SIZE - city.second.size()), ' ');
 
-            // Check path
+            // Check path and record valid city
             while (pred[source][lastHop] != source) {
                 lastHop = pred[source][lastHop];
             }
-
-            // Record city
             if (lastHop == dest) {
                 signs[i].insert(cityName, best[source][city.first] - dist);
             }
