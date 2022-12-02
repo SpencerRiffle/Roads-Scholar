@@ -125,7 +125,7 @@ int main() {
          }
      }
  }
-
+ 
 void WriteSigns(const vector<vector<double>>& best, const vector<vector<double>>& pred, 
                 vector<Sign>& signs, const unordered_map<int, string>& cities) {
     
